@@ -6,4 +6,6 @@ example/
 *example
 /example/
 .idea/
-
+*/__pycache__/*
+__pycache__/
+*__pycache__/

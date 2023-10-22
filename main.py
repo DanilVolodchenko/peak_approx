@@ -1,20 +1,33 @@
 from approx_funcs import gaussian
+from custom_typing import Boundary
 import utils
 
 
 def main():
-    file_dir = utils.get_file_directory()
-    files = utils.get_files(file_dir)
+    try:
+        files = utils.get_files()
 
-    txt_files = utils.get_txt_file_list(files)
-    log_file = utils.get_log_file(files)
+        txt_files = utils.get_txt_file_list(files)
+        log_file = utils.get_log_file(files)
 
-    parameters = utils.get_parameters(gaussian, file_dir, txt_files, skip_rows=17)
+        parameters = utils.get_parameters(gaussian,
+                                          txt_files,
+                                          boundary=Boundary(3.55, 3.7),
+                                          skip_rows=17)
 
-    temp = utils.get_temperature_data(file_dir, log_file, txt_files, skip_rows=17)
-    utils.graph_temp_param(parameters, temp, 'angles')
+        temp = utils.get_temperature_data(log_file,
+                                          txt_files,
+                                          skip_rows=17)
+        utils.graph_temp_param(parameters, temp, 'angles')
 
-    utils.show_graph()
+    except ValueError:
+        raise ValueError('Названия файлов не соответствуют правильным!')
+
+    except Exception as exception:
+        raise exception
+
+    else:
+        utils.show_graph()
 
 
 if __name__ == '__main__':
