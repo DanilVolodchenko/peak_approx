@@ -8,8 +8,8 @@ def gaussian(x, a, b, c):
     return y
 
 
-def lorentzian(x, a0, a1, a2):
+def lorentzian(x, a, b, c):
     """Функция Лоренса."""
 
-    y = a0 / (1 + ((x - a1) / a2) ** 2)
+    y = a / (1 + ((x - b) / c) ** 2)
     return y

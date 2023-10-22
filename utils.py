@@ -9,7 +9,9 @@ from scipy.optimize import curve_fit
 from custom_typing import OptimalParameters, Boundary
 
 
-def _get_optimal_parameters(func: Any, x: np.ndarray, y: np.ndarray) -> list:
+def _get_optimal_parameters(func: Any,
+                            x: np.ndarray,
+                            y: np.ndarray) -> list[float]:
     """
     Получает оптимальные параметры в виде списка:
     [высота пика, угол пика, ширина пика], где
@@ -23,7 +25,7 @@ def _get_optimal_parameters(func: Any, x: np.ndarray, y: np.ndarray) -> list:
     return optimal_parameters
 
 
-def _get_mode_from_file(files: list) -> list:
+def _get_mode_from_file(files: list[str]) -> list[int]:
     """
     Получает номера файлов.
     Подается файл с названием TiAg_1-00053.txt,
@@ -48,7 +50,7 @@ def _get_file_directory() -> str:
 
 def _get_data_from_txt_files(txt_file: str,
                              boundary: Boundary,
-                             skip_rows=0) -> tuple:
+                             skip_rows=0) -> tuple[np.array, np.array]:
     """
     Получаю данные с файлов с расширением .txt.
     txt_file - файл с расширением .txt, в котором
@@ -72,7 +74,7 @@ def _get_data_from_txt_files(txt_file: str,
     return x, y
 
 
-def get_files() -> list:
+def get_files() -> list[str]:
     """Получает список всех файлов."""
 
     file_directory = _get_file_directory()
@@ -80,7 +82,7 @@ def get_files() -> list:
     return sorted(os.listdir(file_directory))
 
 
-def get_txt_file_list(files: list) -> list:
+def get_txt_file_list(files: list[str]) -> list[str]:
     """Получает список .txt файлов с данными."""
 
     txt_file_list = []
@@ -92,7 +94,7 @@ def get_txt_file_list(files: list) -> list:
     return txt_file_list
 
 
-def get_log_file(files: list) -> str:
+def get_log_file(files: list[str]) -> str:
     """Получает список .log файлов."""
 
     for file in files:
@@ -101,7 +103,7 @@ def get_log_file(files: list) -> str:
 
 
 def get_parameters(func: Any,
-                   txt_file_list: list,
+                   txt_file_list: list[str],
                    boundary: Boundary,
                    skip_rows=0) -> OptimalParameters:
     """
@@ -132,8 +134,8 @@ def get_parameters(func: Any,
 
 
 def get_temperature_data(log_file: str,
-                         txt_files: list,
-                         skip_rows=1) -> list:
+                         txt_files: list[str],
+                         skip_rows=1) -> list[float]:
     """
     Получает температуру для определенного образца.
     file_directory - директория, где находятся файлы с данными,
@@ -162,7 +164,7 @@ def get_temperature_data(log_file: str,
 
 
 def graph_temp_param(parameters: OptimalParameters,
-                     temperature: list,
+                     temperature: list[float],
                      name: str) -> None:
     """
     Выводит график зависимости температуры от параметра по вашему усмотрению.

@@ -3,7 +3,7 @@ from custom_typing import Boundary
 import utils
 
 
-def main():
+def main() -> None:
     try:
         files = utils.get_files()
 
@@ -18,13 +18,14 @@ def main():
         temp = utils.get_temperature_data(log_file,
                                           txt_files,
                                           skip_rows=17)
-        utils.graph_temp_param(parameters, temp, 'angles')
+        name_param = 'angles'
+        utils.graph_temp_param(parameters, temp, name_param)
 
     except ValueError:
         raise ValueError('Названия файлов не соответствуют правильным!')
 
     except Exception as exception:
-        raise exception
+        raise Exception(f'Что-то пошло не так: {exception}') from exception
 
     else:
         utils.show_graph()
