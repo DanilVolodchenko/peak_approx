@@ -156,6 +156,7 @@ def get_temperature_data(log_file: str,
                                      usecols=(2, 8))
 
     mode_files = _get_mode_from_file(txt_files)
+
     for i, mode in enumerate(modes):
         if mode in mode_files:
             temperature.append(temperatures[i])
